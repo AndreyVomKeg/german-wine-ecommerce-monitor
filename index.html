@@ -779,12 +779,12 @@ p { max-width: 70ch; }
   gap: 12px;
   margin-bottom: 12px;
 }
-.comp-card-name {
+.comp-card-name { display: flex; align-items: center;
   font-family: var(--font-heading);
   font-size: 1.15rem;
   font-weight: 700;
 }
-.comp-card-name a {
+.comp-card-logo {     width: 24px;     height: 24px;     border-radius: 4px;     vertical-align: middle;     margin-right: 8px;     flex-shrink: 0;   }   .comp-card-name a {
   color: var(--burgundy);
   text-decoration: none;
   border-bottom: 1px solid transparent;
@@ -1752,7 +1752,7 @@ p { max-width: 70ch; }
       card.setAttribute('aria-label', 'Profil von ' + c.name);
       card.innerHTML = `
         <div class="comp-card-header">
-          <h3 class="comp-card-name"><a href="${c.url}" target="_blank" rel="noopener noreferrer">${c.name}</a></h3>
+          <h3 class="comp-card-name"><img src="https://www.google.com/s2/favicons?domain=${new URL(c.url).hostname}&sz=32" alt="" class="comp-card-logo" onerror="this.style.display='none'"><a href="${c.url}" target="_blank" rel="noopener noreferrer">${c.name}</a></h3>
           <span class="segment-badge">${c.segment}</span>
         </div>
         <p class="comp-card-usp">${c.usp}</p>
