@@ -1088,7 +1088,7 @@ p { max-width: 70ch; }
 .high-contrast .site-footer p { color: #333 !important; }
 .high-contrast .footer-links a { color: #000 !important; border-color: #000 !important; }
 .high-contrast .footer-links a:hover { background: #000 !important; color: #fff !important; }
-/* Colored comp-cards overrides */ .comp-card .comp-card-name a { color: inherit !important; } .comp-card .comp-card-usp { color: inherit !important; opacity: 0.7; } .comp-card .comp-stat { color: inherit !important; opacity: 0.8; } .comp-card .comp-stat-value { color: inherit !important; opacity: 1; } .comp-card .segment-badge { background: rgba(0,0,0,0.12) !important; color: inherit !important; } .comp-card .comp-card-revenue { color: inherit !important; border-top-color: rgba(0,0,0,0.15) !important; } .comp-card .comp-card-stats { border-color: rgba(0,0,0,0.1); } </style>
+/* Colored comp-cards overrides */ .comp-card { color: #000 !important; } .comp-card .comp-card-name { font-weight: 800 !important; } .comp-card .comp-card-name a { color: #000 !important; font-weight: 800 !important; text-decoration: none; } .comp-card .comp-card-usp { color: #000 !important; opacity: 0.75; font-weight: 500; } .comp-card .comp-stat { color: #000 !important; font-weight: 600; } .comp-card .comp-stat-value { color: #000 !important; font-weight: 800 !important; } .comp-card .segment-badge { background: rgba(0,0,0,0.12) !important; color: #000 !important; font-weight: 700; } .comp-card .comp-card-revenue { color: #000 !important; border-top-color: rgba(0,0,0,0.15) !important; font-weight: 700; } .comp-card .comp-card-stats { color: #000 !important; } .comp-card .comp-card-name a { color: inherit !important; } .comp-card .comp-card-usp { color: inherit !important; opacity: 0.7; } .comp-card .comp-stat { color: inherit !important; opacity: 0.8; } .comp-card .comp-stat-value { color: inherit !important; opacity: 1; } .comp-card .segment-badge { background: rgba(0,0,0,0.12) !important; color: inherit !important; } .comp-card .comp-card-revenue { color: inherit !important; border-top-color: rgba(0,0,0,0.15) !important; } .comp-card .comp-card-stats { border-color: rgba(0,0,0,0.1); } </style>
 </head>
 <body>
 
@@ -1944,7 +1944,7 @@ p { max-width: 70ch; }
     const grid = document.getElementById('cards-grid'); const cardBgs=['#3ABFB0','#F0C430','#C0D0D5','#D5CFC0','#B8C8C5','#D2E500','#B8D4E3','#7DD8CC','#E8B820','#C8D600','#89B4C8','#A0BFB8']; const darkText='#1A2535';
     competitors.forEach(c => {
       const card = document.createElement('article');
-      card.className = 'comp-card'; var bg=cardBgs[grid.children.length%cardBgs.length]; var tc=bg==='#3ABFB0'?'#fff':darkText; card.style.background=bg; card.style.color=tc; card.style.boxShadow='inset 0 0 0 0.5px rgba(255,255,255,0.25)';
+      card.className = 'comp-card'; var bg=cardBgs[grid.children.length%cardBgs.length]; var tc='#000'; card.style.background=bg; card.style.color=tc; card.style.boxShadow='inset 0 0 0 0.5px rgba(255,255,255,0.25)';
       card.setAttribute('role', 'listitem');
       card.setAttribute('tabindex', '0');
       card.setAttribute('aria-label', 'Profil von ' + c.name);
