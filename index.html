@@ -284,21 +284,21 @@
 <style>
 /* ===== CSS VARIABLES ===== */
 :root {
-  --bg: #FAFAF7;
+  --bg: #F5F3EE;
   --bg-card: #FFFFFF;
   --bg-card-alt: #F5F4F0;
-  --ink: #1a1a2e;
-  --ink-light: #4a4a5e;
-  --ink-muted: #7a7a8e;
-  --burgundy: #722F37;
+  --ink: #000000;
+  --ink-light: #222222;
+  --ink-muted: #444444;
+  --burgundy: #5a1020;
   --burgundy-dark: #5a2530;
   --burgundy-light: #8a3f47;
-  --sage: #4a7c59;
+  --sage: #2a5c39;
   --sage-dark: #3a6249;
   --gold: #B8860B;
   --gold-light: #d4a017;
-  --border: #e0ddd5;
-  --border-dark: #c5c0b5;
+  --border: #000000;
+  --border-dark: #000000;
   --focus: #722F37;
   --positive: #4a7c59;
   --negative: #c0392b;
@@ -455,7 +455,7 @@ p { max-width: 70ch; }
   align-items: center;
   gap: 8px;
 }
-.font-size-controls {
+.font-size-controls { display: none !important; } .font-size-controls-DISABLED {
   display: flex;
   align-items: center;
   gap: 2px;
@@ -484,7 +484,7 @@ p { max-width: 70ch; }
   background: var(--burgundy);
   color: #fff;
 }
-.contrast-toggle {
+.contrast-toggle { display: none !important; } .contrast-toggle-DISABLED {
   background: var(--bg-card-alt);
   border: 1px solid var(--border);
   padding: 4px 12px;
