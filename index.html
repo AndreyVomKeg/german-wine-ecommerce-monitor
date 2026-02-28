@@ -1088,7 +1088,7 @@ p { max-width: 70ch; }
 .high-contrast .site-footer p { color: #333 !important; }
 .high-contrast .footer-links a { color: #000 !important; border-color: #000 !important; }
 .high-contrast .footer-links a:hover { background: #000 !important; color: #fff !important; }
-</style>
+/* Colored comp-cards overrides */ .comp-card .comp-card-name a { color: inherit !important; } .comp-card .comp-card-usp { color: inherit !important; opacity: 0.7; } .comp-card .comp-stat { color: inherit !important; opacity: 0.8; } .comp-card .comp-stat-value { color: inherit !important; opacity: 1; } .comp-card .segment-badge { background: rgba(0,0,0,0.12) !important; color: inherit !important; } .comp-card .comp-card-revenue { color: inherit !important; border-top-color: rgba(0,0,0,0.15) !important; } .comp-card .comp-card-stats { border-color: rgba(0,0,0,0.1); } </style>
 </head>
 <body>
 
@@ -1941,10 +1941,10 @@ p { max-width: 70ch; }
 
   // ===== 8. COMPETITOR CARDS =====
   (function() {
-    const grid = document.getElementById('cards-grid');
+    const grid = document.getElementById('cards-grid'); const cardBgs=['#3ABFB0','#F0C430','#C0D0D5','#D5CFC0','#B8C8C5','#D2E500','#B8D4E3','#7DD8CC','#E8B820','#C8D600','#89B4C8','#A0BFB8']; const darkText='#1A2535';
     competitors.forEach(c => {
       const card = document.createElement('article');
-      card.className = 'comp-card';
+      card.className = 'comp-card'; var bg=cardBgs[grid.children.length%cardBgs.length]; var tc=bg==='#3ABFB0'?'#fff':darkText; card.style.background=bg; card.style.color=tc; card.style.boxShadow='inset 0 0 0 0.5px rgba(255,255,255,0.25)';
       card.setAttribute('role', 'listitem');
       card.setAttribute('tabindex', '0');
       card.setAttribute('aria-label', 'Profil von ' + c.name);
@@ -1960,9 +1960,9 @@ p { max-width: 70ch; }
           <div class="comp-stat">Versand: <span class="comp-stat-value">${fmtEur(c.shipping)}</span></div>
           <div class="comp-stat">Gratis ab: <span class="comp-stat-value">${c.freeShippingAt ? fmtEur(c.freeShippingAt) : '—'}</span></div>
           <div class="comp-stat">Bewertung: <span class="comp-stat-value">${c.rating ? c.rating.toFixed(2).replace('.', ',') : '—'}</span></div>
-          <div class="comp-stat">${c.ratingSource ? '<span style="font-size:0.625rem;color:var(--ink-muted)">(' + c.ratingSource + ')</span>' : ''}</div>
+          <div class="comp-stat">${c.ratingSource ? '<span style="font-size:0.625rem;color:inherit;opacity:0.7">(' + c.ratingSource + ')</span>' : ''}</div>
         </div>
-        ${c.revenue !== 'k.A.' ? '<div class="comp-card-revenue">Umsatz: ' + c.revenue + '</div>' : ''}
+        ${c.revenue !== 'k.A.' ? '<div class="comp-card-revenue" style="color:inherit;border-top-color:rgba(0,0,0,0.15)">Umsatz: ' + c.revenue + '</div>' : ''}
       `;
       grid.appendChild(card);
     });
