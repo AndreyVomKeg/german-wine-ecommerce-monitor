@@ -1951,6 +1951,7 @@ p { max-width: 70ch; }
   // ===== 8. COMPETITOR CARDS =====
   (function() {
     const grid = document.getElementById('cards-grid'); const cardBgs=['#3ABFB0','#F0C430','#C0D0D5','#D5CFC0','#B8C8C5','#D2E500','#B8D4E3','#7DD8CC','#E8B820','#C8D600','#89B4C8','#A0BFB8']; const darkText='#1A2535';
+      function getDomain(url) { try { return new URL(url).hostname; } catch(e) { return ''; } }
     competitors.forEach(c => {
       const card = document.createElement('article');
       card.className = 'comp-card'; var bg=cardBgs[grid.children.length%cardBgs.length]; var tc='#000'; card.style.background=bg; card.style.color=tc; card.style.boxShadow='inset 0 0 0 0.5px rgba(255,255,255,0.25)';
