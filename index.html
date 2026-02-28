@@ -542,7 +542,7 @@ p { max-width: 70ch; }
   background: var(--burgundy);
   color: #fff;
 }
-. { display: none !important; } .-DISABLED {
+    .contrast-toggle { display: none !important; } .contrast-toggle-DISABLED {
   background: var(--bg-card-alt);
   border: 1px solid var(--border);
   padding: 4px 12px;
@@ -1354,7 +1354,7 @@ p { max-width: 70ch; }
   });
 
   // High contrast
-  document.querySelector('.').addEventListener('click', function() {
+  document.querySelector('.contrast-toggle').addEventListener('click', function() {
     const isActive = document.body.classList.toggle('high-contrast');
     this.setAttribute('aria-pressed', isActive);
     this.textContent = isActive ? 'Standard' : 'Kontrast';
