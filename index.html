@@ -776,10 +776,12 @@ p { max-width: 70ch; }
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 12px;
+      gap: 6px 12px;
   margin-bottom: 12px;
+      flex-wrap: wrap;
 }
 .comp-card-name { display: flex; align-items: center;
+                     width: 100%;
   font-family: var(--font-heading);
   font-size: 1.3rem;
   font-weight: 700;
