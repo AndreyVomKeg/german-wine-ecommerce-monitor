@@ -1252,18 +1252,18 @@ p { max-width: 70ch; }
 
   // ===== CHART COLOR PALETTE (colorblind-safe) =====
   const cbPalette = [
-    '#722F37', // burgundy
-    '#4a7c59', // sage
-    '#B8860B', // gold
-    '#2c6fbb', // blue
-    '#d45d00', // orange
-    '#8b5e83', // plum
-    '#1a9e9e', // teal
-    '#c44e52', // red-pink
-    '#6b8e23', // olive
-    '#555599', // indigo
-    '#b07833', // bronze
-    '#3a3a5e', // dark slate
+    '#FF2D6B', // hot pink
+    '#00E5FF', // electric cyan
+    '#E9F056', // acid wasabi
+    '#7B2FFF', // electric purple
+    '#FF6B00', // neon orange
+    '#00FF94', // acid mint
+    '#FF004D', // neon magenta
+    '#00B4D8', // vivid teal
+    '#FFE500', // acid yellow
+    '#D500F9', // neon purple
+    '#76FF03', // acid lime
+    '#FF9100', // vivid amber
   ];
 
   // ===== CHART.JS GLOBAL CONFIG =====
@@ -1423,13 +1423,13 @@ p { max-width: 70ch; }
           {
             label: 'Versandkosten (EUR)',
             data: sorted.map(c => c.shipping),
-            backgroundColor: '#722F37',
+            backgroundColor: '#FF2D6B',
             borderRadius: 4,
           },
           {
             label: 'Gratis ab (EUR)',
             data: sorted.map(c => c.freeShippingAt || 0),
-            backgroundColor: '#4a7c59',
+            backgroundColor: '#00E5FF',
             borderRadius: 4,
           }
         ]
