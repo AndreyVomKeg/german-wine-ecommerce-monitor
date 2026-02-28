@@ -1252,18 +1252,18 @@ p { max-width: 70ch; }
 
   // ===== CHART COLOR PALETTE (colorblind-safe) =====
   const cbPalette = [
-    '#FF2D6B', // hot pink
-    '#00E5FF', // electric cyan
-    '#E9F056', // acid wasabi
-    '#7B2FFF', // electric purple
-    '#FF6B00', // neon orange
-    '#00FF94', // acid mint
-    '#FF004D', // neon magenta
-    '#00B4D8', // vivid teal
-    '#FFE500', // acid yellow
-    '#D500F9', // neon purple
-    '#76FF03', // acid lime
-    '#FF9100', // vivid amber
+          '#722F37', // burgundy wine
+      '#2E5C4F', // deep sage
+      '#B8860B', // dark goldenrod
+      '#4A2040', // plum
+      '#8B4513', // saddle brown
+      '#2B5B84', // steel blue
+      '#A0522D', // sienna
+      '#556B2F', // dark olive
+      '#8B2252', // maroon rose
+      '#4682B4', // muted steel blue
+      '#6B4423', // raw umber
+      '#3E7A5E', // muted emerald
   ];
 
   // ===== CHART.JS GLOBAL CONFIG =====
@@ -1423,13 +1423,13 @@ p { max-width: 70ch; }
           {
             label: 'Versandkosten (EUR)',
             data: sorted.map(c => c.shipping),
-            backgroundColor: '#FF2D6B',
+            backgroundColor: '#722F37',
             borderRadius: 4,
           },
           {
             label: 'Gratis ab (EUR)',
             data: sorted.map(c => c.freeShippingAt || 0),
-            backgroundColor: '#00E5FF',
+            backgroundColor: '#B8860B',
             borderRadius: 4,
           }
         ]
@@ -1743,7 +1743,7 @@ p { max-width: 70ch; }
 
   // ===== 8. COMPETITOR CARDS =====
   (function() {
-    const pastelBg = ['#FFE0EA','#DAFAFF','#F8FBCE','#EDE0FF','#FFE4CC','#D4FFE8','#FFD6E0','#D6F0F7','#FFF9CC','#F2D6FF','#E8FFD0','#FFEDCC']; const grid = document.getElementById('cards-grid');
+    const pastelBg = ['#F5E6E8','#E8EDE6','#F0EAD6','#EDE4F0','#EDE0D4','#DDE8EF','#E8DDD4','#E4E8DA','#F0DFEA','#DEE6EE','#E6DDD4','#DDE8E0']; const grid = document.getElementById('cards-grid');
     competitors.forEach((c, i) => {
       const card = document.createElement('article');
       card.className = 'comp-card'; card.style.background = pastelBg[i];
