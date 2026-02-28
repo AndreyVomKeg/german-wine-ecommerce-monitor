@@ -1743,10 +1743,10 @@ p { max-width: 70ch; }
 
   // ===== 8. COMPETITOR CARDS =====
   (function() {
-    const grid = document.getElementById('cards-grid');
-    competitors.forEach(c => {
+    const pastelBg = ['#FFE0EA','#DAFAFF','#F8FBCE','#EDE0FF','#FFE4CC','#D4FFE8','#FFD6E0','#D6F0F7','#FFF9CC','#F2D6FF','#E8FFD0','#FFEDCC']; const grid = document.getElementById('cards-grid');
+    competitors.forEach((c, i) => {
       const card = document.createElement('article');
-      card.className = 'comp-card';
+      card.className = 'comp-card'; card.style.background = pastelBg[i];
       card.setAttribute('role', 'listitem');
       card.setAttribute('tabindex', '0');
       card.setAttribute('aria-label', 'Profil von ' + c.name);
