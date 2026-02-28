@@ -1744,6 +1744,9 @@ p { max-width: 70ch; }
   // ===== 8. COMPETITOR CARDS =====
   (function() {
     const pastelBg = ['#F5E6E8','#E8EDE6','#F0EAD6','#EDE4F0','#EDE0D4','#DDE8EF','#E8DDD4','#E4E8DA','#F0DFEA','#DEE6EE','#E6DDD4','#DDE8E0']; const grid = document.getElementById('cards-grid');
+      const logoMap = {'Hawesko':'hawesko','VINELLO':'vinello','WirWinzer':'wirwinzer','Vicampo':'vicampo','Lobenberg':'lobenberg','weine.de':'weine-de','Weinquelle':'weinquelle','Weinfreunde':'weinfreunde','Silkes Weinkeller':'silkes-weinkeller','Ludwig von Kapff':'ludwig-von-kapff',"Jacques' Wein-Depot":'jacques-wein-depot','Belvini / Cheers2you':'belvini-cheers2you'};
+      function getLogoSrc(c) { const slug = logoMap[c.name]; return slug ? 'assets/logos/' + slug + '.png' : 'https://www.google.com/s2/favicons?domain=' + new URL(c.url).hostname + '&sz=128'; }
+    
     competitors.forEach((c, i) => {
       const card = document.createElement('article');
       card.className = 'comp-card'; card.style.background = pastelBg[i];
@@ -1752,7 +1755,7 @@ p { max-width: 70ch; }
       card.setAttribute('aria-label', 'Profil von ' + c.name);
       card.innerHTML = `
         <div class="comp-card-header">
-          <h3 class="comp-card-name"><img src="https://www.google.com/s2/favicons?domain=${new URL(c.url).hostname}&sz=128" alt="" class="comp-card-logo" onerror="this.style.display='none'"><a href="${c.url}" target="_blank" rel="noopener noreferrer">${c.name}</a></h3>
+          <h3 class="comp-card-name"><img src="${getLogoSrc(c)}" alt="" class="comp-card-logo" onerror="this.onerror=null;this.src='https://www.google.com/s2/favicons?domain='+new URL('${c.url}').hostname+'&sz=128'"><a href="${c.url}" target="_blank" rel="noopener noreferrer">${c.name}</a></h3>
           <span class="segment-badge">${c.segment}</span>
         </div>
         <p class="comp-card-usp">${c.usp}</p>
