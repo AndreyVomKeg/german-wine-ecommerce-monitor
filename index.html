@@ -889,6 +889,15 @@ p { max-width: 70ch; }
   gap: var(--space-md);
   margin-bottom: var(--space-md);
 }
+      .comp-card-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 6px;
+      object-fit: contain;
+      background: rgba(255,255,255,0.9);
+      padding: 3px;
+      flex-shrink: 0;
+    }
 .comp-card-name {
   font-family: var(--font-primary);
   font-size: 1rem;
@@ -1950,6 +1959,7 @@ p { max-width: 70ch; }
       card.setAttribute('aria-label', 'Profil von ' + c.name);
       card.innerHTML = `
         <div class="comp-card-header">
+                      <img class="comp-card-logo" src="https://logo.clearbit.com/${getDomain(c.url)}" alt="${c.name} Logo" onerror="this.onerror=null;this.src='https://www.google.com/s2/favicons?domain=${getDomain(c.url)}&sz=64';">
           <h3 class="comp-card-name"><a style="color:#000;font-weight:800" href="${c.url}" target="_blank" rel="noopener noreferrer">${c.name}</a></h3>
           <span class="segment-badge">${c.segment}</span>
         </div>
