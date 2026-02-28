@@ -278,7 +278,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Source+Sans+3:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Source+Sans+3:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 
 <style>
@@ -330,59 +330,59 @@
 
       /* Dark dashboard theme - inspired by modern fintech dashboards */
     .dark-theme {
-      --bg: #0D0D0D;
-      --bg-card: #1A1A2E;
-      --bg-card-alt: #16213E;
+      --bg: #121820;
+      --bg-card: #1A2535;
+      --bg-card-alt: #1E2D3A;
       --ink: #E8E8E8;
       --ink-light: #C0C0C0;
-      --ink-muted: #8A8A9E;
-      --burgundy: #2BBAA0;
-      --burgundy-dark: #239E88;
-      --burgundy-light: #3DD4B8;
-      --sage: #D4E800;
+      --ink-muted: #5A6A7A;
+      --burgundy: #3ABFB0;
+      --burgundy-dark: #2A9E8A;
+      --burgundy-light: #7DD8CC;
+      --sage: #D2E500;
       --sage-dark: #B8CC00;
-      --gold: #E8B832;
+      --gold: #F0C430;
       --gold-light: #F0CC5A;
-      --border: #2A2A3E;
-      --border-dark: #3A3A4E;
-      --focus: #2BBAA0;
-      --positive: #2BBAA0;
+      --border: #2A3A48;
+      --border-dark: #3A4E5C;
+      --focus: #3ABFB0;
+      --positive: #3ABFB0;
       --negative: #FF6B6B;
       --shadow-sm: 0 4px 16px rgba(0,0,0,0.30), 0 1px 4px rgba(0,0,0,0.20);
       --shadow-md: 0 8px 24px rgba(0,0,0,0.40), 0 2px 8px rgba(0,0,0,0.25);
       --shadow-lg: 0 12px 32px rgba(0,0,0,0.50), 0 4px 12px rgba(0,0,0,0.30);
     }
-    .dark-theme .site-header { background: #0D0D0D; border-bottom-color: #2A2A3E; }
-    .dark-theme .header-nav { background: #0D0D0D; border-bottom-color: #2A2A3E; }
-    .dark-theme .header-brand h1 { color: #2BBAA0; }
-    .dark-theme .nav-link { color: #8A8A9E; }
-    .dark-theme .nav-link:hover { color: #2BBAA0; border-bottom-color: #2BBAA0; }
-    .dark-theme .badge-date { background: #1A1A2E; color: #C0C0C0; border-color: #2A2A3E; }
-    .dark-theme .badge-freq { background: #1A2E1A; color: #D4E800; border-color: #2A3E2A; }
-    .dark-theme .badge-kw { background: #2E2A1A; color: #E8B832; border-color: #3E3A2A; }
-    .dark-theme .kpi-card { background: #1A1A2E; border-color: #2A2A3E; }
-    .dark-theme .kpi-icon { color: #2BBAA0; }
-    .dark-theme .chart-wrapper { background: #1A1A2E; border-color: #2A2A3E; }
-    .dark-theme .toggle-btn { background: #1A1A2E; color: #8A8A9E; border-color: #2A2A3E; }
-    .dark-theme .toggle-btn.active { background: #2BBAA0; color: #0D0D0D; }
-    .dark-theme .toggle-group { border-color: #2A2A3E; }
-    .dark-theme .data-table th { background: #16213E; color: #E8E8E8; border-bottom-color: #2A2A3E; }
+    .dark-theme .site-header { background: #121820; border-bottom-color: #2A3A48; }
+    .dark-theme .header-nav { background: #121820; border-bottom-color: #2A3A48; }
+    .dark-theme .header-brand h1 { color: #3ABFB0; }
+    .dark-theme .nav-link { color: #5A6A7A; }
+    .dark-theme .nav-link:hover { color: #3ABFB0; border-bottom-color: #3ABFB0; }
+    .dark-theme .badge-date { background: #1A1A2E; color: #C0C0C0; border-color: #2A3A48; }
+    .dark-theme .badge-freq { background: #1A2E1A; color: #D2E500; border-color: #2A3E2A; }
+    .dark-theme .badge-kw { background: #2E2A1A; color: #F0C430; border-color: #3E3A2A; }
+    .dark-theme .kpi-card { background: #1A1A2E; border-color: #2A3A48; }
+    .dark-theme .kpi-icon { color: #3ABFB0; }
+    .dark-theme .chart-wrapper { background: #1A1A2E; border-color: #2A3A48; }
+    .dark-theme .toggle-btn { background: #1A1A2E; color: #5A6A7A; border-color: #2A3A48; }
+    .dark-theme .toggle-btn.active { background: #3ABFB0; color: #0D0D0D; }
+    .dark-theme .toggle-group { border-color: #2A3A48; }
+    .dark-theme .data-table th { background: #16213E; color: #E8E8E8; border-bottom-color: #2A3A48; }
     .dark-theme .data-table td { border-bottom-color: #1A1A2E; color: #C0C0C0; }
     .dark-theme .data-table tbody tr:hover { background: #16213E; }
-    .dark-theme .filter-btn { background: #1A1A2E; border-color: #2A2A3E; color: #C0C0C0; }
-    .dark-theme .filter-btn:hover, .dark-theme .filter-btn.active { background: #2BBAA0; color: #0D0D0D; border-color: #2BBAA0; }
-    .dark-theme .export-btn { background: #1A1A2E; border-color: #2A2A3E; color: #C0C0C0; }
-    .dark-theme .export-btn:hover { background: #2BBAA0; color: #0D0D0D; border-color: #2BBAA0; }
-    .dark-theme .comp-card { border-color: #2A2A3E; background: #1A1A2E !important; }
-    .dark-theme .comp-card-name a { color: #2BBAA0; }
-    .dark-theme .segment-badge { background: #16213E; color: #D4E800; }
-    .dark-theme .comp-card-revenue { color: #E8B832; border-top-color: #2A2A3E; }
-    .dark-theme .methodik-content { background: #1A1A2E; border-color: #2A2A3E; }
-    .dark-theme .license-badge { background: #1A2E1A; color: #D4E800; }
-    .dark-theme .site-footer { background: #0A0A0A; }
-    .dark-theme .footer-links a { border-color: #2A2A3E; }
-    .dark-theme .footer-links a:hover { background: #2BBAA0; border-color: #2BBAA0; }
-    .theme-toggle { background: #1A1A2E; border: 1px solid #2A2A3E; padding: 6px 14px; cursor: pointer; font-family: var(--font-body); font-weight: 600; color: var(--ink); border-radius: var(--radius); font-size: 0.8rem; transition: all var(--transition); white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; }
+    .dark-theme .filter-btn { background: #1A1A2E; border-color: #2A3A48; color: #C0C0C0; }
+    .dark-theme .filter-btn:hover, .dark-theme .filter-btn.active { background: #3ABFB0; color: #0D0D0D; border-color: #3ABFB0; }
+    .dark-theme .export-btn { background: #1A1A2E; border-color: #2A3A48; color: #C0C0C0; }
+    .dark-theme .export-btn:hover { background: #3ABFB0; color: #0D0D0D; border-color: #3ABFB0; }
+    .dark-theme .comp-card { border-color: #2A3A48; background: #1A1A2E !important; }
+    .dark-theme .comp-card-name a { color: #3ABFB0; }
+    .dark-theme .segment-badge { background: #16213E; color: #D2E500; }
+    .dark-theme .comp-card-revenue { color: #F0C430; border-top-color: #2A3A48; }
+    .dark-theme .methodik-content { background: #1A1A2E; border-color: #2A3A48; }
+    .dark-theme .license-badge { background: #1A2E1A; color: #D2E500; }
+    .dark-theme .site-footer { background: #0D1117; }
+    .dark-theme .footer-links a { border-color: #2A3A48; }
+    .dark-theme .footer-links a:hover { background: #3ABFB0; border-color: #3ABFB0; }
+    .theme-toggle { background: #1A1A2E; border: 1px solid #2A3A48; padding: 6px 14px; cursor: pointer; font-family: var(--font-body); font-weight: 600; color: var(--ink); border-radius: var(--radius); font-size: 0.8rem; transition: all var(--transition); white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; }
     .theme-toggle:hover { background: var(--burgundy); color: #fff; border-color: var(--burgundy); }
     :root .theme-toggle { background: var(--bg-card-alt); border-color: var(--border); color: var(--ink); }
 
@@ -1376,7 +1376,7 @@ p { max-width: 70ch; }
         localStorage.setItem('wine-monitor-theme', isDark ? 'dark' : 'light');
         // Update Chart.js colors for dark mode
         const textColor = isDark ? '#C0C0C0' : '#4a4a5e';
-        const gridColor = isDark ? '#2A2A3E' : '#e0ddd520';
+        const gridColor = isDark ? '#2A3A48' : '#e0ddd520';
         Chart.defaults.color = textColor;
         Object.values(charts).forEach(c => {
           if (c.options.scales) {
