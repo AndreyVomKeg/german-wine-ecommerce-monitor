@@ -565,6 +565,7 @@ p { max-width: 70ch; }
   margin: 0 auto;
   padding: 0 var(--space-lg);
   display: flex;
+  justify-content: center;
   gap: var(--space-xs);
 }
 .nav-link {
@@ -910,7 +911,7 @@ p { max-width: 70ch; }
   color: var(--color-teal);
   text-decoration: none;
   border-bottom: 1px solid transparent;
-  transition: border-color var(--transition));
+  transition: border-color var(--transition);
 }
 .comp-card-name a:hover, .comp-card-name a:focus-visible {
   border-bottom-color: var(--color-teal);
@@ -1464,8 +1465,12 @@ p { max-width: 70ch; }
     this.setAttribute('aria-pressed', isActive);
     this.textContent = isActive ? 'Standard' : 'Kontrast';
     // Update chart colors for contrast mode
+    var tickColor = isActive ? '#000000' : darkTickColor;
+    var labelColor = isActive ? '#000000' : '#C0D0D5';
+    var gridColor = isActive ? 'rgba(0,0,0,0.15)' : darkGridColor;
+    var titleColor = isActive ? '#000000' : '#8FAAB8';
     if (isActive) {
-      Chart.defaults.color = '#333333';
+      Chart.defaults.color = '#000000';
       Chart.defaults.plugins.tooltip.backgroundColor = '#FFFFFF';
       Chart.defaults.plugins.tooltip.titleColor = '#000000';
       Chart.defaults.plugins.tooltip.bodyColor = '#333333';
@@ -1477,8 +1482,16 @@ p { max-width: 70ch; }
       Chart.defaults.plugins.tooltip.bodyColor = '#C0D0D5';
       Chart.defaults.plugins.tooltip.borderColor = '#3A4E5C';
     }
-    // Redraw all charts
-    Object.values(charts).forEach(c => c.update());
+    // Update each chart's scale colors (overrides inline colors)
+    Object.values(charts).forEach(function(c) {
+      Object.keys(c.options.scales).forEach(function(axis) {
+        var scale = c.options.scales[axis];
+        if (scale.ticks) scale.ticks.color = (axis === 'y' && !scale.title) ? labelColor : tickColor;
+        if (scale.grid) scale.grid.color = gridColor;
+        if (scale.title) scale.title.color = titleColor;
+      });
+      c.update();
+    });
   });
 
   // ===== KPI CARDS =====
@@ -1829,7 +1842,7 @@ p { max-width: 70ch; }
       const meta = this.getDatasetMeta(0);
       ctx.save();
       ctx.font = "13px 'Inter', sans-serif";
-      ctx.fillStyle = '#8FAAB8';
+      ctx.fillStyle = document.body.classList.contains('high-contrast') ? '#000000' : '#8FAAB8';
       ctx.textAlign = 'left';
       ctx.textBaseline = 'middle';
       meta.data.forEach((bar, i) => {
@@ -1930,7 +1943,7 @@ p { max-width: 70ch; }
       const ctx = this.ctx;
       ctx.save();
       ctx.font = "bold 13px 'Inter', sans-serif";
-      ctx.fillStyle = '#F0F0EC';
+      ctx.fillStyle = document.body.classList.contains('high-contrast') ? '#000000' : '#F0F0EC';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'bottom';
       this.data.datasets.forEach((ds, di) => {
