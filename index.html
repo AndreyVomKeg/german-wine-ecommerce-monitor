@@ -1482,7 +1482,7 @@ p { max-width: 70ch; }
       Chart.defaults.plugins.tooltip.bodyColor = '#C0D0D5';
       Chart.defaults.plugins.tooltip.borderColor = '#3A4E5C';
     }
-    // Update each chart's scale colors (overrides inline colors)
+    // Update each chart's scale colors and legend colors (overrides inline colors)
     Object.values(charts).forEach(function(c) {
       Object.keys(c.options.scales).forEach(function(axis) {
         var scale = c.options.scales[axis];
@@ -1490,6 +1490,10 @@ p { max-width: 70ch; }
         if (scale.grid) scale.grid.color = gridColor;
         if (scale.title) scale.title.color = titleColor;
       });
+      // Update legend label colors
+      if (c.options.plugins && c.options.plugins.legend && c.options.plugins.legend.labels) {
+        c.options.plugins.legend.labels.color = isActive ? '#000000' : '#C0D0D5';
+      }
       c.update();
     });
   });
