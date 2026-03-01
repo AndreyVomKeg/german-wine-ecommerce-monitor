@@ -1197,7 +1197,7 @@ p { max-width: 70ch; }
     <div class="section-header">
       <div>
         <span class="section-number">03 — Versandkosten</span>
-        <h2 id="versand-heading">Versandkosten &amp; Gratisversand-Schwelle</h2>
+        <h2 id="versand-heading">Versandkosten & Gratisversand-Schwelle</h2>
       </div>
     </div>
     <div class="chart-wrapper">
@@ -1262,7 +1262,7 @@ p { max-width: 70ch; }
           <button class="filter-btn" data-filter="hasSubscription" aria-pressed="false" aria-label="Nur Shops mit Abo">Abo</button>
           <button class="filter-btn" data-filter="hasSommelier" aria-pressed="false" aria-label="Nur Shops mit Sommelier-Beratung">Sommelier</button>
           <button class="filter-btn" data-filter="hasApp" aria-pressed="false" aria-label="Nur Shops mit App">App</button>
-          <button class="filter-btn" data-filter="hasMilesMore" aria-pressed="false" aria-label="Nur Shops mit Miles and More">Miles&amp;More</button>
+          <button class="filter-btn" data-filter="hasMilesMore" aria-pressed="false" aria-label="Nur Shops mit Miles and More">Miles&More</button>
         </div>
         <button class="export-btn" id="export-csv" aria-label="Feature-Matrix als CSV exportieren">
           <span aria-hidden="true">↓</span> CSV Export
@@ -1277,7 +1277,7 @@ p { max-width: 70ch; }
               <th scope="col" aria-sort="none">Abo</th>
               <th scope="col" aria-sort="none">Sommelier</th>
               <th scope="col" aria-sort="none">App</th>
-              <th scope="col" aria-sort="none">Miles&amp;More</th>
+              <th scope="col" aria-sort="none">Miles&More</th>
               <th scope="col" class="num" aria-sort="none">Gesamt</th>
             </tr>
           </thead>
@@ -1329,7 +1329,7 @@ p { max-width: 70ch; }
           <button class="toggle-btn" data-target="positionierung" data-action="view" data-value="table" aria-label="Tabelle anzeigen" aria-pressed="false">Tabelle</button>
         </div>
       </div>
-      <div class="chart-canvas-wrap" id="positionierung-chart-wrap" style="min-height:520px">
+      <div class="chart-canvas-wrap" id="positionierung-chart-wrap" style="min-height:600px">
         <canvas id="positionierung-chart" aria-label="Bubble-Chart: Sortimentsgröße (X) vs Versandkosten (Y), Blasengröße = Bewertung" role="img"></canvas>
       </div>
       <div class="data-table-wrap" id="positionierung-table-wrap" role="region" aria-label="Positionierungsdaten als Tabelle">
@@ -1358,7 +1358,7 @@ p { max-width: 70ch; }
   <section class="section" id="methodik" aria-labelledby="methodik-heading">
     <div class="section-header">
       <div>
-        <span class="section-number">09 — Methodik &amp; Quellen</span>
+        <span class="section-number">09 — Methodik & Quellen</span>
         <h2 id="methodik-heading">Datenerhebung und Lizenz</h2>
       </div>
     </div>
@@ -1899,10 +1899,11 @@ p { max-width: 70ch; }
         maintainAspectRatio: false,
         plugins: {
           legend: {
-            position: 'top',
+            position: 'bottom',
             labels: {
               usePointStyle: true,
               pointStyle: 'circle',
+              padding: 16,
               font: { size: 13, family: "'Inter', sans-serif" },
               color: '#C0D0D5'
             }
