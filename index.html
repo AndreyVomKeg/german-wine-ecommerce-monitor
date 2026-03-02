@@ -1197,7 +1197,7 @@ p { max-width: 70ch; }
     <div class="section-header">
       <div>
         <span class="section-number">03 — Versandkosten</span>
-        <h2 id="versand-heading">Versandkosten &amp; Gratisversand-Schwelle</h2>
+        <h2 id="versand-heading">Versandkosten & Gratisversand-Schwelle</h2>
       </div>
     </div>
     <div class="chart-wrapper">
@@ -1262,7 +1262,7 @@ p { max-width: 70ch; }
           <button class="filter-btn" data-filter="hasSubscription" aria-pressed="false" aria-label="Nur Shops mit Abo">Abo</button>
           <button class="filter-btn" data-filter="hasSommelier" aria-pressed="false" aria-label="Nur Shops mit Sommelier-Beratung">Sommelier</button>
           <button class="filter-btn" data-filter="hasApp" aria-pressed="false" aria-label="Nur Shops mit App">App</button>
-          <button class="filter-btn" data-filter="hasMilesMore" aria-pressed="false" aria-label="Nur Shops mit Miles and More">Miles&amp;More</button>
+          <button class="filter-btn" data-filter="hasMilesMore" aria-pressed="false" aria-label="Nur Shops mit Miles and More">Miles&More</button>
         </div>
         <button class="export-btn" id="export-csv" aria-label="Feature-Matrix als CSV exportieren">
           <span aria-hidden="true">↓</span> CSV Export
@@ -1277,7 +1277,7 @@ p { max-width: 70ch; }
               <th scope="col" aria-sort="none">Abo</th>
               <th scope="col" aria-sort="none">Sommelier</th>
               <th scope="col" aria-sort="none">App</th>
-              <th scope="col" aria-sort="none">Miles&amp;More</th>
+              <th scope="col" aria-sort="none">Miles&More</th>
               <th scope="col" class="num" aria-sort="none">Gesamt</th>
             </tr>
           </thead>
@@ -1358,7 +1358,7 @@ p { max-width: 70ch; }
   <section class="section" id="methodik" aria-labelledby="methodik-heading">
     <div class="section-header">
       <div>
-        <span class="section-number">09 — Methodik &amp; Quellen</span>
+        <span class="section-number">09 — Methodik & Quellen</span>
         <h2 id="methodik-heading">Datenerhebung und Lizenz</h2>
       </div>
     </div>
@@ -1946,14 +1946,35 @@ p { max-width: 70ch; }
       }
     });
 
-    // Name labels on bubbles — drawn as afterDatasetsDraw plugin so tooltip renders on top
+    // Name labels on bubbles — hide only labels that overlap with active tooltip
     Chart.register({
       id: 'bubbleLabels',
       afterDatasetsDraw: function(chart) {
         if (chart.canvas.id !== 'positionierung-chart') return;
-        // Skip drawing labels if tooltip is currently active/visible
         var tooltip = chart.tooltip;
-        if (tooltip && tooltip.opacity > 0) return;
+        var ttActive = tooltip && tooltip.opacity > 0;
+        var ttBox = null;
+        if (ttActive) {
+          // Tooltip bounding box with some padding
+          var pad = 8;
+          ttBox = {
+            x1: tooltip.x - (tooltip.width / 2) - pad,
+            x2: tooltip.x + (tooltip.width / 2) + pad,
+            y1: tooltip.y - pad,
+            y2: tooltip.y + tooltip.height + pad
+          };
+          // Adjust for caret/position — tooltip.caretX/caretY are the anchor point
+          if (tooltip.xAlign === 'left') {
+            ttBox.x1 = tooltip.x - pad;
+            ttBox.x2 = tooltip.x + tooltip.width + pad;
+          } else if (tooltip.xAlign === 'right') {
+            ttBox.x1 = tooltip.x - tooltip.width - pad;
+            ttBox.x2 = tooltip.x + pad;
+          } else {
+            ttBox.x1 = tooltip.x - (tooltip.width / 2) - pad;
+            ttBox.x2 = tooltip.x + (tooltip.width / 2) + pad;
+          }
+        }
         var ctx = chart.ctx;
         ctx.save();
         ctx.font = "bold 13px 'Inter', sans-serif";
@@ -1964,7 +1985,21 @@ p { max-width: 70ch; }
           var meta = chart.getDatasetMeta(di);
           meta.data.forEach(function(pt, pi) {
             var r = pt.options.radius || 6;
-            ctx.fillText(ds.data[pi].name, pt.x, pt.y - r - 3);
+            var labelX = pt.x;
+            var labelY = pt.y - r - 3;
+            // Check if this label overlaps with the tooltip box
+            if (ttBox) {
+              var textW = ctx.measureText(ds.data[pi].name).width;
+              var lx1 = labelX - textW / 2;
+              var lx2 = labelX + textW / 2;
+              var ly1 = labelY - 14; // approximate text height
+              var ly2 = labelY;
+              // If label rectangle intersects tooltip rectangle, skip it
+              if (lx1 < ttBox.x2 && lx2 > ttBox.x1 && ly1 < ttBox.y2 && ly2 > ttBox.y1) {
+                return; // skip this label
+              }
+            }
+            ctx.fillText(ds.data[pi].name, labelX, labelY);
           });
         });
         ctx.restore();
