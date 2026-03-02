@@ -1329,7 +1329,7 @@ p { max-width: 70ch; }
           <button class="toggle-btn" data-target="positionierung" data-action="view" data-value="table" aria-label="Tabelle anzeigen" aria-pressed="false">Tabelle</button>
         </div>
       </div>
-      <div class="chart-canvas-wrap" id="positionierung-chart-wrap" style="min-height:600px">
+      <div class="chart-canvas-wrap" id="positionierung-chart-wrap" style="min-height:650px">
         <canvas id="positionierung-chart" aria-label="Bubble-Chart: Sortimentsgröße (X) vs Versandkosten (Y), Blasengröße = Bewertung" role="img"></canvas>
       </div>
       <div class="data-table-wrap" id="positionierung-table-wrap" role="region" aria-label="Positionierungsdaten als Tabelle">
@@ -1900,7 +1900,7 @@ p { max-width: 70ch; }
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        layout: { padding: { top: 30 } },
+        layout: { padding: { top: 50 } },
         plugins: {
           legend: {
             position: 'bottom',
@@ -1946,25 +1946,30 @@ p { max-width: 70ch; }
       }
     });
 
-    // Name labels on bubbles
-    const origDraw2 = charts.positionierung.draw;
-    charts.positionierung.draw = function() {
-      origDraw2.call(this);
-      const ctx = this.ctx;
-      ctx.save();
-      ctx.font = "bold 13px 'Inter', sans-serif";
-      ctx.fillStyle = document.body.classList.contains('high-contrast') ? '#000000' : '#F0F0EC';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'bottom';
-      this.data.datasets.forEach((ds, di) => {
-        const meta = this.getDatasetMeta(di);
-        meta.data.forEach((pt, pi) => {
-          const r = pt.options.radius || 6;
-          ctx.fillText(ds.data[pi].name, pt.x, pt.y - r - 3);
+    // Name labels on bubbles — drawn as afterDatasetsDraw plugin so tooltip renders on top
+    Chart.register({
+      id: 'bubbleLabels',
+      afterDatasetsDraw: function(chart) {
+        if (chart.canvas.id !== 'positionierung-chart') return;
+        // Skip drawing labels if tooltip is currently active/visible
+        var tooltip = chart.tooltip;
+        if (tooltip && tooltip.opacity > 0) return;
+        var ctx = chart.ctx;
+        ctx.save();
+        ctx.font = "bold 13px 'Inter', sans-serif";
+        ctx.fillStyle = document.body.classList.contains('high-contrast') ? '#000000' : '#F0F0EC';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'bottom';
+        chart.data.datasets.forEach(function(ds, di) {
+          var meta = chart.getDatasetMeta(di);
+          meta.data.forEach(function(pt, pi) {
+            var r = pt.options.radius || 6;
+            ctx.fillText(ds.data[pi].name, pt.x, pt.y - r - 3);
+          });
         });
-      });
-      ctx.restore();
-    };
+        ctx.restore();
+      }
+    });
 
     // Table
     const tbody = document.querySelector('#positionierung-table tbody');
