@@ -1197,7 +1197,7 @@ p { max-width: 70ch; }
     <div class="section-header">
       <div>
         <span class="section-number">03 — Versandkosten</span>
-        <h2 id="versand-heading">Versandkosten &amp; Gratisversand-Schwelle</h2>
+        <h2 id="versand-heading">Versandkosten & Gratisversand-Schwelle</h2>
       </div>
     </div>
     <div class="chart-wrapper">
@@ -1262,7 +1262,7 @@ p { max-width: 70ch; }
           <button class="filter-btn" data-filter="hasSubscription" aria-pressed="false" aria-label="Nur Shops mit Abo">Abo</button>
           <button class="filter-btn" data-filter="hasSommelier" aria-pressed="false" aria-label="Nur Shops mit Sommelier-Beratung">Sommelier</button>
           <button class="filter-btn" data-filter="hasApp" aria-pressed="false" aria-label="Nur Shops mit App">App</button>
-          <button class="filter-btn" data-filter="hasMilesMore" aria-pressed="false" aria-label="Nur Shops mit Miles and More">Miles&amp;More</button>
+          <button class="filter-btn" data-filter="hasMilesMore" aria-pressed="false" aria-label="Nur Shops mit Miles and More">Miles&More</button>
         </div>
         <button class="export-btn" id="export-csv" aria-label="Feature-Matrix als CSV exportieren">
           <span aria-hidden="true">↓</span> CSV Export
@@ -1277,7 +1277,7 @@ p { max-width: 70ch; }
               <th scope="col" aria-sort="none">Abo</th>
               <th scope="col" aria-sort="none">Sommelier</th>
               <th scope="col" aria-sort="none">App</th>
-              <th scope="col" aria-sort="none">Miles&amp;More</th>
+              <th scope="col" aria-sort="none">Miles&More</th>
               <th scope="col" class="num" aria-sort="none">Gesamt</th>
             </tr>
           </thead>
@@ -1358,7 +1358,7 @@ p { max-width: 70ch; }
   <section class="section" id="methodik" aria-labelledby="methodik-heading">
     <div class="section-header">
       <div>
-        <span class="section-number">09 — Methodik &amp; Quellen</span>
+        <span class="section-number">09 — Methodik & Quellen</span>
         <h2 id="methodik-heading">Datenerhebung und Lizenz</h2>
       </div>
     </div>
@@ -1584,7 +1584,7 @@ p { max-width: 70ch; }
         indexAxis: 'y',
         responsive: true,
         maintainAspectRatio: false,
-        layout: { padding: { left: 25 } },
+        layout: { padding: { left: 10 } },
         plugins: {
           legend: { display: false },
           tooltip: {
@@ -1600,6 +1600,7 @@ p { max-width: 70ch; }
             ticks: { callback: v => fmt(v), color: darkTickColor, font: { size: 13 } }
           },
           y: {
+            afterFit(axis) { if (axis.width < 160) axis.width = 160; },
             grid: { display: false },
             ticks: { color: '#C0D0D5', font: { size: 13 } }
           }
@@ -1702,7 +1703,7 @@ p { max-width: 70ch; }
         indexAxis: 'y',
         responsive: true,
         maintainAspectRatio: false,
-        layout: { padding: { left: 25 } },
+        layout: { padding: { left: 10 } },
         plugins: {
           legend: { display: false },
           tooltip: {
@@ -1729,6 +1730,7 @@ p { max-width: 70ch; }
             title: { display: true, text: 'Preis in EUR (logarithmisch)', color: '#8FAAB8', font: { size: 13 } }
           },
           y: {
+            afterFit(axis) { if (axis.width < 160) axis.width = 160; },
             grid: { display: false },
             ticks: { color: '#C0D0D5', font: { size: 13 } }
           }
@@ -1818,7 +1820,7 @@ p { max-width: 70ch; }
         indexAxis: 'y',
         responsive: true,
         maintainAspectRatio: false,
-        layout: { padding: { left: 25 } },
+        layout: { padding: { left: 10 } },
         plugins: {
           legend: { display: false },
           tooltip: {
@@ -1835,6 +1837,7 @@ p { max-width: 70ch; }
             ticks: { callback: v => v.toFixed(1).replace('.', ','), color: darkTickColor, font: { size: 13 } }
           },
           y: {
+            afterFit(axis) { if (axis.width < 160) axis.width = 160; },
             grid: { display: false },
             ticks: { color: '#C0D0D5', font: { size: 13 } }
           }
