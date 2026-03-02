@@ -1228,7 +1228,7 @@ p { max-width: 70ch; }
     <div class="section-header">
       <div>
         <span class="section-number">03 — Versandkosten</span>
-        <h2 id="versand-heading">Versandkosten & Gratisversand-Schwelle</h2>
+        <h2 id="versand-heading">Versandkosten &amp; Gratisversand-Schwelle</h2>
       </div>
     </div>
     <div class="chart-wrapper">
@@ -1293,7 +1293,7 @@ p { max-width: 70ch; }
           <button class="filter-btn" data-filter="hasSubscription" aria-pressed="false" aria-label="Nur Shops mit Abo">Abo</button>
           <button class="filter-btn" data-filter="hasSommelier" aria-pressed="false" aria-label="Nur Shops mit Sommelier-Beratung">Sommelier</button>
           <button class="filter-btn" data-filter="hasApp" aria-pressed="false" aria-label="Nur Shops mit App">App</button>
-          <button class="filter-btn" data-filter="hasMilesMore" aria-pressed="false" aria-label="Nur Shops mit Miles and More">Miles&More</button>
+          <button class="filter-btn" data-filter="hasMilesMore" aria-pressed="false" aria-label="Nur Shops mit Miles and More">Miles&amp;More</button>
         </div>
         <button class="export-btn" id="export-csv" aria-label="Feature-Matrix als CSV exportieren">
           <span aria-hidden="true">↓</span> CSV Export
@@ -1308,7 +1308,7 @@ p { max-width: 70ch; }
               <th scope="col" aria-sort="none">Abo</th>
               <th scope="col" aria-sort="none">Sommelier</th>
               <th scope="col" aria-sort="none">App</th>
-              <th scope="col" aria-sort="none">Miles&More</th>
+              <th scope="col" aria-sort="none">Miles&amp;More</th>
               <th scope="col" class="num" aria-sort="none">Gesamt</th>
             </tr>
           </thead>
@@ -1389,7 +1389,7 @@ p { max-width: 70ch; }
   <section class="section" id="methodik" aria-labelledby="methodik-heading">
     <div class="section-header">
       <div>
-        <span class="section-number">09 — Methodik & Quellen</span>
+        <span class="section-number">09 — Methodik &amp; Quellen</span>
         <h2 id="methodik-heading">Datenerhebung und Lizenz</h2>
       </div>
     </div>
@@ -1587,10 +1587,25 @@ p { max-width: 70ch; }
 
   // ===== CHART INSTANCES =====
   const charts = {};
+  const chartInitialized = {};
 
   // Grid line and scale config helper for dark theme
   const darkGridColor = 'rgba(58, 78, 92, 0.25)';
   const darkTickColor = '#8FAAB8';
+
+  // ===== SCROLL-TRIGGERED CHART ANIMATION =====
+  const chartAnimationConfig = {
+    duration: prefersReducedMotion ? 0 : 1200,
+    easing: 'easeOutQuart'
+  };
+  const bubbleAnimationConfig = {
+    duration: prefersReducedMotion ? 0 : 1400,
+    easing: 'easeOutElastic',
+    delay: function(ctx) { return ctx.dataIndex * 120; }
+  };
+
+  // Chart initializer functions — called once when section scrolls into view
+  const chartInitializers = {};
 
   // ===== 2. SORTIMENT CHART =====
   (function() {
@@ -1598,46 +1613,49 @@ p { max-width: 70ch; }
     const labels = sorted.map(c => c.name);
     const data = sorted.map(c => c.wines);
 
-    charts.sortiment = new Chart(document.getElementById('sortiment-chart'), {
-      type: 'bar',
-      data: {
-        labels,
-        datasets: [{
-          label: 'Anzahl Weine',
-          data,
-          backgroundColor: cbPalette.slice(0, labels.length),
-          borderWidth: 0,
-          borderRadius: { topRight: 3, bottomRight: 3 },
-          borderSkipped: false,
-        }]
-      },
-      options: {
-        indexAxis: 'y',
-        responsive: true,
-        maintainAspectRatio: false,
-        layout: { padding: { left: 10 } },
-        plugins: {
-          legend: { display: false },
-          tooltip: {
-            callbacks: {
-              label: ctx => fmt(ctx.parsed.x) + ' Weine'
+    chartInitializers['sortiment-chart'] = function() {
+      charts.sortiment = new Chart(document.getElementById('sortiment-chart'), {
+        type: 'bar',
+        data: {
+          labels,
+          datasets: [{
+            label: 'Anzahl Weine',
+            data,
+            backgroundColor: cbPalette.slice(0, labels.length),
+            borderWidth: 0,
+            borderRadius: { topRight: 3, bottomRight: 3 },
+            borderSkipped: false,
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          animation: chartAnimationConfig,
+          layout: { padding: { left: 10 } },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: ctx => fmt(ctx.parsed.x) + ' Weine'
+              }
+            }
+          },
+          scales: {
+            x: {
+              type: 'linear',
+              grid: { color: darkGridColor },
+              ticks: { callback: v => fmt(v), color: darkTickColor, font: { size: 13 } }
+            },
+            y: {
+              afterFit(axis) { if (axis.width < 160) axis.width = 160; },
+              grid: { display: false },
+              ticks: { color: '#C0D0D5', font: { size: 13 } }
             }
           }
-        },
-        scales: {
-          x: {
-            type: 'linear',
-            grid: { color: darkGridColor },
-            ticks: { callback: v => fmt(v), color: darkTickColor, font: { size: 13 } }
-          },
-          y: {
-            afterFit(axis) { if (axis.width < 160) axis.width = 160; },
-            grid: { display: false },
-            ticks: { color: '#C0D0D5', font: { size: 13 } }
-          }
         }
-      }
-    });
+      });
+    };
 
     // Populate table
     const tbody = document.querySelector('#sortiment-table tbody');
@@ -1653,57 +1671,60 @@ p { max-width: 70ch; }
     const sorted = [...competitors].sort((a, b) => a.shipping - b.shipping);
     const labels = sorted.map(c => c.name);
 
-    charts.versand = new Chart(document.getElementById('versand-chart'), {
-      type: 'bar',
-      data: {
-        labels,
-        datasets: [
-          {
-            label: 'Versandkosten (EUR)',
-            data: sorted.map(c => c.shipping),
-            backgroundColor: '#3ABFB0',
-            borderRadius: { topLeft: 3, topRight: 3 },
-          },
-          {
-            label: 'Gratis ab (EUR)',
-            data: sorted.map(c => c.freeShippingAt || 0),
-            backgroundColor: '#F0C430',
-            borderRadius: { topLeft: 3, topRight: 3 },
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        layout: { padding: { left: 25 } },
-        plugins: {
-          legend: {
-            position: 'top',
-            labels: {
-              usePointStyle: true,
-              pointStyle: 'rectRounded',
-              color: '#C0D0D5',
-              font: { size: 13, family: "'Inter', sans-serif" }
+    chartInitializers['versand-chart'] = function() {
+      charts.versand = new Chart(document.getElementById('versand-chart'), {
+        type: 'bar',
+        data: {
+          labels,
+          datasets: [
+            {
+              label: 'Versandkosten (EUR)',
+              data: sorted.map(c => c.shipping),
+              backgroundColor: '#3ABFB0',
+              borderRadius: { topLeft: 3, topRight: 3 },
+            },
+            {
+              label: 'Gratis ab (EUR)',
+              data: sorted.map(c => c.freeShippingAt || 0),
+              backgroundColor: '#F0C430',
+              borderRadius: { topLeft: 3, topRight: 3 },
             }
-          },
-          tooltip: {
-            callbacks: {
-              label: ctx => ctx.dataset.label + ': ' + fmtEur(ctx.parsed.y)
-            }
-          }
+          ]
         },
-        scales: {
-          x: {
-            grid: { display: false },
-            ticks: { color: '#C0D0D5', font: { size: 13 }, maxRotation: 45 }
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          animation: chartAnimationConfig,
+          layout: { padding: { left: 25 } },
+          plugins: {
+            legend: {
+              position: 'top',
+              labels: {
+                usePointStyle: true,
+                pointStyle: 'rectRounded',
+                color: '#C0D0D5',
+                font: { size: 13, family: "'Inter', sans-serif" }
+              }
+            },
+            tooltip: {
+              callbacks: {
+                label: ctx => ctx.dataset.label + ': ' + fmtEur(ctx.parsed.y)
+              }
+            }
           },
-          y: {
-            grid: { color: darkGridColor },
-            ticks: { callback: v => v + ' €', color: darkTickColor, font: { size: 13 } }
+          scales: {
+            x: {
+              grid: { display: false },
+              ticks: { color: '#C0D0D5', font: { size: 13 }, maxRotation: 45 }
+            },
+            y: {
+              grid: { color: darkGridColor },
+              ticks: { callback: v => v + ' €', color: darkTickColor, font: { size: 13 } }
+            }
           }
         }
-      }
-    });
+      });
+    };
 
     // Populate table
     const tbody = document.querySelector('#versand-table tbody');
@@ -1719,22 +1740,24 @@ p { max-width: 70ch; }
     const sorted = [...competitors].sort((a, b) => b.priceMax - a.priceMax);
     const labels = sorted.map(c => c.name);
 
-    charts.preis = new Chart(document.getElementById('preis-chart'), {
-      type: 'bar',
-      data: {
-        labels,
-        datasets: [{
-          label: 'Preisspanne (EUR)',
-          data: sorted.map(c => [c.priceMin, c.priceMax]),
-          backgroundColor: sorted.map((_, i) => cbPalette[i % cbPalette.length]),
-          borderRadius: 3,
-        }]
-      },
-      options: {
-        indexAxis: 'y',
-        responsive: true,
-        maintainAspectRatio: false,
-        layout: { padding: { left: 10 } },
+    chartInitializers['preis-chart'] = function() {
+      charts.preis = new Chart(document.getElementById('preis-chart'), {
+        type: 'bar',
+        data: {
+          labels,
+          datasets: [{
+            label: 'Preisspanne (EUR)',
+            data: sorted.map(c => [c.priceMin, c.priceMax]),
+            backgroundColor: sorted.map((_, i) => cbPalette[i % cbPalette.length]),
+            borderRadius: 3,
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          animation: chartAnimationConfig,
+          layout: { padding: { left: 10 } },
         plugins: {
           legend: { display: false },
           tooltip: {
@@ -1768,6 +1791,7 @@ p { max-width: 70ch; }
         }
       }
     });
+    };
 
     // Populate table
     const tbody = document.querySelector('#preis-table tbody');
@@ -1836,64 +1860,67 @@ p { max-width: 70ch; }
     const rated = competitors.filter(c => c.rating != null).sort((a, b) => b.rating - a.rating);
     const labels = rated.map(c => c.name);
 
-    charts.bewertungen = new Chart(document.getElementById('bewertungen-chart'), {
-      type: 'bar',
-      data: {
-        labels,
-        datasets: [{
-          label: 'Bewertung',
-          data: rated.map(c => c.rating),
-          backgroundColor: rated.map((_, i) => cbPalette[i % cbPalette.length]),
-          borderRadius: { topRight: 3, bottomRight: 3 },
-        }]
-      },
-      options: {
-        indexAxis: 'y',
-        responsive: true,
-        maintainAspectRatio: false,
-        layout: { padding: { left: 10 } },
-        plugins: {
-          legend: { display: false },
-          tooltip: {
-            callbacks: {
-              afterLabel: ctx => 'Quelle: ' + rated[ctx.dataIndex].ratingSource
+    chartInitializers['bewertungen-chart'] = function() {
+      charts.bewertungen = new Chart(document.getElementById('bewertungen-chart'), {
+        type: 'bar',
+        data: {
+          labels,
+          datasets: [{
+            label: 'Bewertung',
+            data: rated.map(c => c.rating),
+            backgroundColor: rated.map((_, i) => cbPalette[i % cbPalette.length]),
+            borderRadius: { topRight: 3, bottomRight: 3 },
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          animation: chartAnimationConfig,
+          layout: { padding: { left: 10 } },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                afterLabel: ctx => 'Quelle: ' + rated[ctx.dataIndex].ratingSource
+              }
+            }
+          },
+          scales: {
+            x: {
+              min: 4.4,
+              max: 5.0,
+              grid: { color: darkGridColor },
+              ticks: { callback: v => v.toFixed(1).replace('.', ','), color: darkTickColor, font: { size: 13 } }
+            },
+            y: {
+              afterFit(axis) { if (axis.width < 160) axis.width = 160; },
+              grid: { display: false },
+              ticks: { color: '#C0D0D5', font: { size: 13 } }
             }
           }
-        },
-        scales: {
-          x: {
-            min: 4.4,
-            max: 5.0,
-            grid: { color: darkGridColor },
-            ticks: { callback: v => v.toFixed(1).replace('.', ','), color: darkTickColor, font: { size: 13 } }
-          },
-          y: {
-            afterFit(axis) { if (axis.width < 160) axis.width = 160; },
-            grid: { display: false },
-            ticks: { color: '#C0D0D5', font: { size: 13 } }
-          }
         }
-      }
-    });
-
-    // Data labels plugin (inline rating source)
-    const originalDraw = charts.bewertungen.draw;
-    charts.bewertungen.draw = function() {
-      originalDraw.call(this);
-      const ctx = this.ctx;
-      const meta = this.getDatasetMeta(0);
-      ctx.save();
-      ctx.font = "13px 'Inter', sans-serif";
-      ctx.fillStyle = document.body.classList.contains('high-contrast') ? '#000000' : '#8FAAB8';
-      ctx.textAlign = 'left';
-      ctx.textBaseline = 'middle';
-      meta.data.forEach((bar, i) => {
-        const x = bar.x + 6;
-        const y = bar.y;
-        const val = rated[i].rating.toFixed(2).replace('.', ',') + ' — ' + rated[i].ratingSource;
-        ctx.fillText(val, x, y);
       });
-      ctx.restore();
+
+      // Data labels plugin (inline rating source)
+      const originalDraw = charts.bewertungen.draw;
+      charts.bewertungen.draw = function() {
+        originalDraw.call(this);
+        const ctx = this.ctx;
+        const meta = this.getDatasetMeta(0);
+        ctx.save();
+        ctx.font = "13px 'Inter', sans-serif";
+        ctx.fillStyle = document.body.classList.contains('high-contrast') ? '#000000' : '#8FAAB8';
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'middle';
+        meta.data.forEach((bar, i) => {
+          const x = bar.x + 6;
+          const y = bar.y;
+          const val = rated[i].rating.toFixed(2).replace('.', ',') + ' — ' + rated[i].ratingSource;
+          ctx.fillText(val, x, y);
+        });
+        ctx.restore();
+      };
     };
 
     // Table
@@ -1928,57 +1955,60 @@ p { max-width: 70ch; }
       };
     });
 
-    charts.positionierung = new Chart(document.getElementById('positionierung-chart'), {
-      type: 'bubble',
-      data: { datasets },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        layout: { padding: { top: 50 } },
-        plugins: {
-          legend: {
-            position: 'bottom',
-            labels: {
-              usePointStyle: true,
-              pointStyle: 'circle',
-              padding: 16,
-              font: { size: 13, family: "'Inter', sans-serif" },
-              color: '#C0D0D5'
+    chartInitializers['positionierung-chart'] = function() {
+      charts.positionierung = new Chart(document.getElementById('positionierung-chart'), {
+        type: 'bubble',
+        data: { datasets },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          animation: bubbleAnimationConfig,
+          layout: { padding: { top: 50 } },
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: {
+                usePointStyle: true,
+                pointStyle: 'circle',
+                padding: 16,
+                font: { size: 13, family: "'Inter', sans-serif" },
+                color: '#C0D0D5'
+              }
+            },
+            tooltip: {
+              callbacks: {
+                title: ctx => ctx[0].raw.name,
+                label: ctx => [
+                  'Weine: ' + fmt(ctx.raw.x),
+                  'Versand: ' + fmtEur(ctx.raw.y),
+                  'Bewertung: ' + (ctx.raw.rating ? ctx.raw.rating.toFixed(2).replace('.', ',') : '—')
+                ]
+              }
             }
           },
-          tooltip: {
-            callbacks: {
-              title: ctx => ctx[0].raw.name,
-              label: ctx => [
-                'Weine: ' + fmt(ctx.raw.x),
-                'Versand: ' + fmtEur(ctx.raw.y),
-                'Bewertung: ' + (ctx.raw.rating ? ctx.raw.rating.toFixed(2).replace('.', ',') : '—')
-              ]
+          scales: {
+            x: {
+              type: 'logarithmic',
+              title: { display: true, text: 'Anzahl Weine (log)', color: '#8FAAB8', font: { size: 13 } },
+              grid: { color: darkGridColor },
+              ticks: {
+                callback: function(v) {
+                  if ([50, 100, 500, 1000, 5000, 10000, 50000, 100000].includes(v)) return fmt(v);
+                  return '';
+                },
+                color: darkTickColor,
+                font: { size: 13 }
+              }
+            },
+            y: {
+              title: { display: true, text: 'Versandkosten (EUR)', color: '#8FAAB8', font: { size: 13 } },
+              grid: { color: darkGridColor },
+              ticks: { callback: v => v.toFixed(2).replace('.', ',') + ' €', color: darkTickColor, font: { size: 13 } }
             }
-          }
-        },
-        scales: {
-          x: {
-            type: 'logarithmic',
-            title: { display: true, text: 'Anzahl Weine (log)', color: '#8FAAB8', font: { size: 13 } },
-            grid: { color: darkGridColor },
-            ticks: {
-              callback: function(v) {
-                if ([50, 100, 500, 1000, 5000, 10000, 50000, 100000].includes(v)) return fmt(v);
-                return '';
-              },
-              color: darkTickColor,
-              font: { size: 13 }
-            }
-          },
-          y: {
-            title: { display: true, text: 'Versandkosten (EUR)', color: '#8FAAB8', font: { size: 13 } },
-            grid: { color: darkGridColor },
-            ticks: { callback: v => v.toFixed(2).replace('.', ',') + ' €', color: darkTickColor, font: { size: 13 } }
           }
         }
-      }
-    });
+      });
+    };
 
     // Name labels on bubbles — hide only labels that overlap with active tooltip
     Chart.register({
@@ -2080,6 +2110,26 @@ p { max-width: 70ch; }
             card.querySelector('.comp-card-name a').style.setProperty('color','#000','important');
     });
   })();
+
+  // ===== INTERSECTION OBSERVER — lazy-init charts on scroll =====
+  const chartCanvasIds = ['sortiment-chart', 'versand-chart', 'preis-chart', 'bewertungen-chart', 'positionierung-chart'];
+  const chartObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        if (chartInitializers[id] && !chartInitialized[id]) {
+          chartInitialized[id] = true;
+          chartInitializers[id]();
+          chartObserver.unobserve(entry.target);
+        }
+      }
+    });
+  }, { threshold: 0.15 });
+
+  chartCanvasIds.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) chartObserver.observe(el);
+  });
 
   // ===== VIEW TOGGLE (chart/table) =====
   document.querySelectorAll('[data-action="view"]').forEach(btn => {
