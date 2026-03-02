@@ -632,10 +632,19 @@ p { max-width: 70ch; }
   padding: var(--space-lg);
   position: relative;
   overflow: hidden;
-  transition: transform var(--transition);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow:
+    0 2px 4px rgba(0,0,0,0.25),
+    0 8px 24px rgba(0,0,0,0.3),
+    inset 0 1px 0 rgba(255,255,255,0.06);
+  transition: transform var(--transition), box-shadow var(--transition);
 }
 .kpi-card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow:
+    0 4px 8px rgba(0,0,0,0.3),
+    0 16px 40px rgba(0,0,0,0.35),
+    inset 0 1px 0 rgba(255,255,255,0.08);
 }
 /* Inner border inset */
 .kpi-card::before {
@@ -715,6 +724,11 @@ p { max-width: 70ch; }
   background: var(--bg-card);
   border-radius: var(--radius-lg);
   padding: 28px;
+  border: 1px solid var(--border-dark);
+  box-shadow:
+    0 2px 4px rgba(0,0,0,0.2),
+    0 8px 24px rgba(0,0,0,0.25),
+    inset 0 1px 0 rgba(255,255,255,0.04);
 }
 .chart-controls {
   display: flex;
@@ -876,10 +890,19 @@ p { max-width: 70ch; }
   background: var(--bg-card);
   border-radius: var(--radius-lg);
   padding: 28px;
-  transition: transform var(--transition);
+  border: 1px solid var(--border-dark);
+  box-shadow:
+    0 2px 4px rgba(0,0,0,0.2),
+    0 8px 24px rgba(0,0,0,0.25),
+    inset 0 1px 0 rgba(255,255,255,0.04);
+  transition: transform var(--transition), box-shadow var(--transition);
 }
 .comp-card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow:
+    0 4px 8px rgba(0,0,0,0.25),
+    0 16px 40px rgba(0,0,0,0.3),
+    inset 0 1px 0 rgba(255,255,255,0.06);
 }
 .comp-card:focus-within {
   outline: 2px solid var(--focus);
@@ -963,6 +986,11 @@ p { max-width: 70ch; }
   background: var(--bg-card);
   border-radius: var(--radius-lg);
   padding: var(--space-lg) 28px;
+  border: 1px solid var(--border-dark);
+  box-shadow:
+    0 2px 4px rgba(0,0,0,0.2),
+    0 8px 24px rgba(0,0,0,0.25),
+    inset 0 1px 0 rgba(255,255,255,0.04);
 }
 .methodik-content p {
   margin-bottom: var(--space-md);
@@ -1062,7 +1090,7 @@ p { max-width: 70ch; }
   body { font-size: 12pt; background: #fff; color: #000; }
   .kpi-card { background: #eee !important; color: #000 !important; }
   .kpi-card .kpi-value, .kpi-card .kpi-label, .kpi-card .kpi-detail { color: #000 !important; }
-  .chart-wrapper, .methodik-content { background: #fff !important; border: 1px solid #ccc !important; }
+  .chart-wrapper, .methodik-content { background: #fff !important; border: 1px solid #ccc !important; box-shadow: none !important; }
   .data-table th { background: #eee !important; color: #000 !important; }
   .data-table td { color: #333 !important; border-color: #ccc !important; }
 }
@@ -1081,7 +1109,7 @@ p { max-width: 70ch; }
 }
 
 /* ===== High contrast adjustments for colored KPI cards ===== */
-.high-contrast .kpi-card { background: #eee !important; }
+.high-contrast .kpi-card { background: #eee !important; border-color: #ccc !important; box-shadow: 0 2px 4px rgba(0,0,0,0.08), 0 8px 24px rgba(0,0,0,0.12) !important; }
 .high-contrast .kpi-card .kpi-value,
 .high-contrast .kpi-card .kpi-label { color: #000 !important; }
 .high-contrast .kpi-card .kpi-detail { color: #333 !important; border-color: #ccc !important; }
@@ -1096,6 +1124,9 @@ p { max-width: 70ch; }
 /* removed */
 .high-contrast .license-badge { background: #ddd !important; color: #000 !important; }
 .high-contrast .site-footer { background: #f0f0f0 !important; border-top-color: #000 !important; }
+.high-contrast .chart-wrapper,
+.high-contrast .comp-card,
+.high-contrast .methodik-content { border-color: #ccc !important; box-shadow: 0 2px 4px rgba(0,0,0,0.06), 0 8px 20px rgba(0,0,0,0.1) !important; }
 .high-contrast .site-footer h3 { color: #000 !important; }
 .high-contrast .site-footer p { color: #333 !important; }
 .high-contrast .footer-links a { color: #000 !important; border-color: #000 !important; }
@@ -1197,7 +1228,7 @@ p { max-width: 70ch; }
     <div class="section-header">
       <div>
         <span class="section-number">03 — Versandkosten</span>
-        <h2 id="versand-heading">Versandkosten & Gratisversand-Schwelle</h2>
+        <h2 id="versand-heading">Versandkosten &amp; Gratisversand-Schwelle</h2>
       </div>
     </div>
     <div class="chart-wrapper">
@@ -1262,7 +1293,7 @@ p { max-width: 70ch; }
           <button class="filter-btn" data-filter="hasSubscription" aria-pressed="false" aria-label="Nur Shops mit Abo">Abo</button>
           <button class="filter-btn" data-filter="hasSommelier" aria-pressed="false" aria-label="Nur Shops mit Sommelier-Beratung">Sommelier</button>
           <button class="filter-btn" data-filter="hasApp" aria-pressed="false" aria-label="Nur Shops mit App">App</button>
-          <button class="filter-btn" data-filter="hasMilesMore" aria-pressed="false" aria-label="Nur Shops mit Miles and More">Miles&More</button>
+          <button class="filter-btn" data-filter="hasMilesMore" aria-pressed="false" aria-label="Nur Shops mit Miles and More">Miles&amp;More</button>
         </div>
         <button class="export-btn" id="export-csv" aria-label="Feature-Matrix als CSV exportieren">
           <span aria-hidden="true">↓</span> CSV Export
@@ -1277,7 +1308,7 @@ p { max-width: 70ch; }
               <th scope="col" aria-sort="none">Abo</th>
               <th scope="col" aria-sort="none">Sommelier</th>
               <th scope="col" aria-sort="none">App</th>
-              <th scope="col" aria-sort="none">Miles&More</th>
+              <th scope="col" aria-sort="none">Miles&amp;More</th>
               <th scope="col" class="num" aria-sort="none">Gesamt</th>
             </tr>
           </thead>
@@ -1358,7 +1389,7 @@ p { max-width: 70ch; }
   <section class="section" id="methodik" aria-labelledby="methodik-heading">
     <div class="section-header">
       <div>
-        <span class="section-number">09 — Methodik & Quellen</span>
+        <span class="section-number">09 — Methodik &amp; Quellen</span>
         <h2 id="methodik-heading">Datenerhebung und Lizenz</h2>
       </div>
     </div>
